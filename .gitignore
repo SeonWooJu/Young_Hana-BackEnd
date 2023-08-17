@@ -34,4 +34,7 @@ build/
 
 ### Sensitive Information ###
 src/main/resources/application.properties
-src/main/resources/mapper/db-config.xml
+src/main/resources/mapper/db1/db1-config.xml
+
+### Database Information ###
+DB/
