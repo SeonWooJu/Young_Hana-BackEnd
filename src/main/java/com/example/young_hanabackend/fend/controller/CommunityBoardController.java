@@ -1,7 +1,6 @@
 package com.example.young_hanabackend.fend.controller;
 
 import com.example.young_hanabackend.entity.CommunityBoard;
-import com.example.young_hanabackend.entity.CommunityBoardList;
 import com.example.young_hanabackend.fend.service.CommunityBoardService;
 import com.example.young_hanabackend.security.logic.JwtToken;
 import com.example.young_hanabackend.security.model.FendResponseObject;
@@ -12,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/community")
@@ -27,14 +28,14 @@ public class CommunityBoardController {
     }
 
     @GetMapping("/board/list")
-    public ResponseEntity<FendResponseObject<CommunityBoardList>> getCommunityBoardList(
+    public ResponseEntity<FendResponseObject<List<CommunityBoard>>> getCommunityBoardList(
             HttpServletRequest req,
             HttpServletResponse response,
             @RequestParam int topic,
             @RequestParam int limit_start,
             @RequestParam int limit_end
     ) {
-        FendResponseObject<CommunityBoardList> ro = new FendResponseObject<>("Success");
+        FendResponseObject<List<CommunityBoard>> ro = new FendResponseObject<>("Success");
         ro.setMessage("게시글 리스트");
         ro.setData(communityBoardService.getCommunityBoardList(topic, limit_start, limit_end));
 
