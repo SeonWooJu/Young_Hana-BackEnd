@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2019.
+  ~ All right reserved.
+  ~
+  ~ This software is the confidential and proprietary information of WIXNET.
+  ~ You shall not disclose such Confidential Information and
+  ~ shall use it only in accordance with the terms of the license agreement
+  ~ you entered into with WIXNET
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.young_hanabackend.fend.mapper">
+
+    <select id="selectCommunityBoardList" resultType="com.example.young_hanabackend.entity.CommunityBoard">
+        SELECT CB_no, CB_title, CB_cr_date FROM COMMUNITY_BOARD
+                WHERE CB_delete_T_F = false AND CB_topic = ${topic}
+                LIMIT ${limit_start}, ${limit_end}
+    </select>
+
+
+</mapper>
