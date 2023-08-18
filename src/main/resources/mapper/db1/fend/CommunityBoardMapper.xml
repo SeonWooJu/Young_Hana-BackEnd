@@ -14,14 +14,21 @@
 <mapper namespace="com.example.young_hanabackend.fend.mapper.CommunityBoardMapper">
 
     <select id="selectCommunityBoardList" resultType="com.example.young_hanabackend.entity.CommunityBoard">
-        SELECT CB_no, CB_title, CB_cr_date FROM COMMUNITY_BOARD
-            WHERE CB_delete_T_F = false AND CB_topic = ${topic}
+        SELECT
+            (SELECT cs.UI_student_no FROM COMMUNITY_SERVICE cs WHERE cs.CB_no = cb.CB_no) AS 'student_no',
+            (SELECT AES_DECRYPT(FROM_BASE64(UI_name), '${encryptionKey}') FROM USER_INFO WHERE UI_student_no = student_no) AS 'writer',
+            cb.CB_no, cb.CB_title, cb.CB_cr_date FROM COMMUNITY_BOARD cb
+        WHERE cb.CB_delete_T_F = false AND cb.CB_topic = ${topic}
+        ORDER BY cb.CB_no DESC
             LIMIT ${limit_start}, ${limit_end}
     </select>
 
     <select id="selectCommunityBoard" resultType="com.example.young_hanabackend.entity.CommunityBoard">
-        SELECT CB_no, CB_title, CB_content, CB_cr_date FROM COMMUNITY_BOARD
-            WHERE CB_no = ${board_no} AND CB_delete_T_F = false
+        SELECT
+            (SELECT cs.UI_student_no FROM COMMUNITY_SERVICE cs WHERE cs.CB_no = cb.CB_no) AS 'student_no',
+            (SELECT AES_DECRYPT(FROM_BASE64(UI_name), '${encryptionKey}') FROM USER_INFO WHERE UI_student_no = student_no) AS 'writer',
+            cb.CB_no, cb.CB_title, cb.CB_content, cb.CB_cr_date FROM COMMUNITY_BOARD cb
+            WHERE cb.CB_no = ${board_no} AND cb.CB_delete_T_F = false
     </select>
 
     <insert id="insertCommunityBoard" parameterType="com.example.young_hanabackend.entity.CommunityBoard">
@@ -36,7 +43,7 @@
         INSERT INTO COMMUNITY_SERVICE (UI_student_no, CB_no)
         VALUES
         (
-        '${student_no}',
+        '${CB.student_no}',
         (SELECT LAST_INSERT_ID() FROM COMMUNITY_BOARD LIMIT 0, 1)
         );
     </insert>

@@ -30,8 +30,8 @@ public class CommunityBoardService {
         return communityBoardMapper.selectCommunityBoard(board_no);
     }
 
-    public Integer postCommunityBoard(CommunityBoard communityBoard, int student_no) {
-        Integer idx = communityBoardMapper.insertCommunityBoard(communityBoard, student_no);
+    public Integer postCommunityBoard(CommunityBoard communityBoard) {
+        Integer idx = communityBoardMapper.insertCommunityBoard(communityBoard);
         if (idx == 0)
             return null;
 

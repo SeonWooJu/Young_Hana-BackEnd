@@ -30,13 +30,13 @@ public class CommunityBoardController {
     public ResponseEntity<FendResponseObject<CommunityBoardList>> getCommunityBoardList(
             HttpServletRequest req,
             HttpServletResponse response,
-            @RequestParam int kind,
+            @RequestParam int topic,
             @RequestParam int limit_start,
             @RequestParam int limit_end
     ) {
         FendResponseObject<CommunityBoardList> ro = new FendResponseObject<>("Success");
         ro.setMessage("게시글 리스트");
-        ro.setData(communityBoardService.getCommunityBoardList(kind, limit_start, limit_end));
+        ro.setData(communityBoardService.getCommunityBoardList(topic, limit_start, limit_end));
 
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }
@@ -67,8 +67,12 @@ public class CommunityBoardController {
         if (!jwtToken.validateToken(token))
             return new ResponseEntity<>(ro, HttpStatus.FORBIDDEN);
 
-        ro.setData(communityBoardService.postCommunityBoard(communityBoard, jwtToken.getUserPk(token)));
+        communityBoard.setStudent_no(jwtToken.getUserPk(token));
+        ro.setData(communityBoardService.postCommunityBoard(communityBoard));
 
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }
+
+//    @PutMapping("/board")
+//    public ResponseEntity<FendResponseObject<Integer>>
 }
