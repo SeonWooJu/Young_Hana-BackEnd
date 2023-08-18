@@ -46,6 +46,14 @@ public class CommunityBoardService {
         return num;
     }
 
+    public Integer deleteCommunityBoard(int board_no) {
+        Integer num = communityBoardMapper.deleteCommunityBoard(board_no);
+        if (num == 0)
+            return null;
+
+        return num;
+    }
+
     /** 게시물을 수정, 삭제 하기전 권한을 체크하는 함수 **/
     public boolean checkMyCommunityBoard(int student_no, int board_no) {
         return communityBoardMapper.selectMyCommunityBoard(student_no, board_no) == 1;

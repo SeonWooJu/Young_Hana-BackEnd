@@ -55,6 +55,12 @@
         WHERE CB_no = ${CB.CB_no}
     </update>
 
+    <update id="deleteCommunityBoard" parameterType="int">
+        UPDATE COMMUNITY_BOARD
+        SET CB_delete_T_F = true
+        WHERE CB_no = ${board_no}
+    </update>
+
     <select id="selectMyCommunityBoard" resultType="int">
         SELECT COUNT(*) FROM COMMUNITY_SERVICE WHERE UI_student_no = ${student_no} AND CB_no = ${board_no}
     </select>
