@@ -29,4 +29,12 @@ public class CommunityBoardService {
     public CommunityBoard getCommunityBoard(int board_no) {
         return communityBoardMapper.selectCommunityBoard(board_no);
     }
+
+    public Integer postCommunityBoard(CommunityBoard communityBoard, int student_no) {
+        Integer idx = communityBoardMapper.insertCommunityBoard(communityBoard, student_no);
+        if (idx == 0)
+            return null;
+
+        return idx;
+    }
 }

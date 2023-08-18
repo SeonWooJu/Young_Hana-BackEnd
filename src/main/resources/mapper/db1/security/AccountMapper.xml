@@ -17,7 +17,7 @@
         SELECT COUNT(*) FROM USER_INFO WHERE UI_student_no = #{student_no}
     </select>
 
-    <insert id="insertAccount" parameterType="map">
+    <insert id="insertAccount" parameterType="com.example.young_hanabackend.entity.UserInfo">
         INSERT INTO USER_INFO (UI_student_no, UI_name, UI_birth, UI_email, UI_phone_no, UI_pw, UI_group, UI_role)
         VALUES
             (

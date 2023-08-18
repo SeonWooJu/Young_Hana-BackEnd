@@ -11,7 +11,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.young_hanabackend.fend.mapper">
+<mapper namespace="com.example.young_hanabackend.fend.mapper.CommunityBoardMapper">
 
     <select id="selectCommunityBoardList" resultType="com.example.young_hanabackend.entity.CommunityBoard">
         SELECT CB_no, CB_title, CB_cr_date FROM COMMUNITY_BOARD
@@ -23,5 +23,22 @@
         SELECT CB_no, CB_title, CB_content, CB_cr_date FROM COMMUNITY_BOARD
             WHERE CB_no = ${board_no} AND CB_delete_T_F = false
     </select>
+
+    <insert id="insertCommunityBoard" parameterType="com.example.young_hanabackend.entity.CommunityBoard">
+        INSERT INTO COMMUNITY_BOARD (CB_title, CB_content, CB_topic)
+        VALUES
+            (
+            '${CB.CB_title}',
+            '${CB.CB_content}',
+            '${CB.CB_topic}'
+            );
+
+        INSERT INTO COMMUNITY_SERVICE (UI_student_no, CB_no)
+        VALUES
+        (
+        '${student_no}',
+        (SELECT LAST_INSERT_ID() FROM COMMUNITY_BOARD LIMIT 0, 1)
+        );
+    </insert>
 
 </mapper>

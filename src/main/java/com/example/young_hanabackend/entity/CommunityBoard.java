@@ -9,11 +9,10 @@ import java.sql.Date;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommunityBoard {
-    int CB_no;
+    Integer CB_no;
     String CB_title;
     String CB_content;
-    @JsonFormat(pattern = "yyyy-MM-dd")
     Date CB_or_date;
-    int CB_kind;
+    Integer CB_topic;
     boolean CB_delete_T_F;
 }
