@@ -74,7 +74,7 @@ public class CommunityBoardController {
     }
 
     @PutMapping("/board")
-    public ResponseEntity<FendResponseObject<Integer>> putCommunitBoard(
+    public ResponseEntity<FendResponseObject<Integer>> putCommunityBoard(
             HttpServletRequest req,
             HttpServletResponse res,
             @RequestBody CommunityBoard communityBoard
@@ -94,6 +94,13 @@ public class CommunityBoardController {
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }
 
-//    @DeleteMapping("/board")
-//    publi
+    @DeleteMapping("/board")
+    public ResponseEntity<FendResponseObject<Integer>> deleteCommunityBoard (
+            HttpServletRequest req,
+            HttpServletResponse res,
+            @RequestParam int board_no
+    ) {
+
+        return null;
+    }
 }
