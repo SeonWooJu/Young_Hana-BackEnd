@@ -102,13 +102,32 @@ public class CommunityBoardController {
     ) {
         String token = jwtToken.resolveToken(req);
         FendResponseObject<Integer> ro = new FendResponseObject<>("Success");
-        ro.setMessage("게시글 수정");
+        ro.setMessage("게시글 삭제");
 
         // jwt의 유효성 체크 및 자신의 게시물인지 확인
         if (!jwtToken.validateToken(token) || !communityBoardService.checkMyCommunityBoard(jwtToken.getUserPk(token), board_no))
             return new ResponseEntity<>(ro, HttpStatus.FORBIDDEN);
 
         ro.setData(communityBoardService.deleteCommunityBoard(board_no));
+
+        return new ResponseEntity<>(ro, HttpStatus.OK);
+    }
+
+    @GetMapping("/board/check")
+    public ResponseEntity<FendResponseObject<Boolean>> checkMyCommunityBoard(
+            HttpServletRequest req,
+            HttpServletResponse res,
+            @RequestParam int board_no
+    ) {
+        String token = jwtToken.resolveToken(req);
+        FendResponseObject<Boolean> ro = new FendResponseObject<>("Success");
+        ro.setMessage("게시글 체크");
+
+        // jwt의 유효성 체크
+        if (!jwtToken.validateToken(token))
+            return new ResponseEntity<>(ro, HttpStatus.FORBIDDEN);
+
+        ro.setData(communityBoardService.checkMyCommunityBoard(jwtToken.getUserPk(token), board_no));
 
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }
