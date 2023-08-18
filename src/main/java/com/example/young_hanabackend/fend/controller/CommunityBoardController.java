@@ -73,6 +73,27 @@ public class CommunityBoardController {
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }
 
-//    @PutMapping("/board")
-//    public ResponseEntity<FendResponseObject<Integer>>
+    @PutMapping("/board")
+    public ResponseEntity<FendResponseObject<Integer>> putCommunitBoard(
+            HttpServletRequest req,
+            HttpServletResponse res,
+            @RequestBody CommunityBoard communityBoard
+    ) {
+        String token = jwtToken.resolveToken(req);
+        FendResponseObject<Integer> ro = new FendResponseObject<>("Success");
+        ro.setMessage("게시글 수정");
+
+        communityBoard.setStudent_no(jwtToken.getUserPk(token));
+
+        // jwt의 유효성 체크 및 자신의 게시물인지 확인
+        if (!jwtToken.validateToken(token) || !communityBoardService.checkMyCommunityBoard(communityBoard.getStudent_no(), communityBoard.getCB_no()))
+            return new ResponseEntity<>(ro, HttpStatus.FORBIDDEN);
+
+        ro.setData(communityBoardService.putCommunityBoard(communityBoard));
+
+        return new ResponseEntity<>(ro, HttpStatus.OK);
+    }
+
+//    @DeleteMapping("/board")
+//    publi
 }

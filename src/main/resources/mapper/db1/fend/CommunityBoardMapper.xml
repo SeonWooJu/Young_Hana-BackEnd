@@ -48,4 +48,15 @@
         );
     </insert>
 
+    <update id="updateCommunityBoard" parameterType="com.example.young_hanabackend.entity.CommunityBoard">
+        UPDATE COMMUNITY_BOARD
+        SET CB_title = '${CB.CB_title}',
+            CB_content = '${CB.CB_content}'
+        WHERE CB_no = ${CB.CB_no}
+    </update>
+
+    <select id="selectMyCommunityBoard" resultType="int">
+        SELECT COUNT(*) FROM COMMUNITY_SERVICE WHERE UI_student_no = ${student_no} AND CB_no = ${board_no}
+    </select>
+
 </mapper>

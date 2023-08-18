@@ -31,10 +31,23 @@ public class CommunityBoardService {
     }
 
     public Integer postCommunityBoard(CommunityBoard communityBoard) {
-        Integer idx = communityBoardMapper.insertCommunityBoard(communityBoard);
-        if (idx == 0)
+        Integer num = communityBoardMapper.insertCommunityBoard(communityBoard);
+        if (num == 0)
             return null;
 
-        return idx;
+        return num;
+    }
+
+    public Integer putCommunityBoard(CommunityBoard communityBoard) {
+        Integer num = communityBoardMapper.updateCommunityBoard(communityBoard);
+        if (num == 0)
+            return null;
+
+        return num;
+    }
+
+    /** 게시물을 수정, 삭제 하기전 권한을 체크하는 함수 **/
+    public boolean checkMyCommunityBoard(int student_no, int board_no) {
+        return communityBoardMapper.selectMyCommunityBoard(student_no, board_no) == 1;
     }
 }
