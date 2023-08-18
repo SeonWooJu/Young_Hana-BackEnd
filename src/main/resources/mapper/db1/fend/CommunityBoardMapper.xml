@@ -15,9 +15,13 @@
 
     <select id="selectCommunityBoardList" resultType="com.example.young_hanabackend.entity.CommunityBoard">
         SELECT CB_no, CB_title, CB_cr_date FROM COMMUNITY_BOARD
-                WHERE CB_delete_T_F = false AND CB_topic = ${topic}
-                LIMIT ${limit_start}, ${limit_end}
+            WHERE CB_delete_T_F = false AND CB_topic = ${topic}
+            LIMIT ${limit_start}, ${limit_end}
     </select>
 
+    <select id="selectCommunityBoard" resultType="com.example.young_hanabackend.entity.CommunityBoard">
+        SELECT CB_no, CB_title, CB_content, CB_cr_date FROM COMMUNITY_BOARD
+            WHERE CB_no = ${board_no} AND CB_delete_T_F = false
+    </select>
 
 </mapper>
