@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/community")
 public class CommunityCommentController {
 
     CommunityCommentService communityCommentService;

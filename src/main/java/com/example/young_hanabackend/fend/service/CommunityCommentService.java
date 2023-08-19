@@ -23,7 +23,7 @@ public class CommunityCommentService {
 
     public Integer postCommunityComment(CommunityComment communityComment) {
         int num = communityCommentMapper.insertCommunityComment(communityComment);
-        if (num != 0)
+        if (num != 1)
             return null;
 
         return num;
@@ -31,7 +31,7 @@ public class CommunityCommentService {
 
     public Integer deleteCommunityComment(int student_no, int comment_no, int board_no) {
         int num = communityCommentMapper.deleteCommunityComment(student_no, comment_no, board_no);
-        if (num != 0)
+        if (num != 1)
             return null;
 
         return num;

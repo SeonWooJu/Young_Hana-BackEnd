@@ -27,7 +27,7 @@ public class CommunityBoardService {
 
     public Integer postCommunityBoard(CommunityBoard communityBoard) {
         Integer num = communityBoardMapper.insertCommunityBoard(communityBoard);
-        if (num == 0)
+        if (num != 1)
             return null;
 
         return num;
@@ -35,7 +35,7 @@ public class CommunityBoardService {
 
     public Integer putCommunityBoard(CommunityBoard communityBoard) {
         Integer num = communityBoardMapper.updateCommunityBoard(communityBoard);
-        if (num == 0)
+        if (num != 1)
             return null;
 
         return num;
@@ -43,7 +43,7 @@ public class CommunityBoardService {
 
     public Integer deleteCommunityBoard(int board_no) {
         Integer num = communityBoardMapper.deleteCommunityBoard(board_no);
-        if (num == 0)
+        if (num != 1)
             return null;
 
         return num;

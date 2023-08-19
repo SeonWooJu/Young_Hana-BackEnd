@@ -22,7 +22,7 @@
         VALUES
             (
              ${CC.UI_student_no},
-             ${CC.CC_no},
+             ${CC.CB_no},
              '${CC.CC_content}'
             )
     </insert>
