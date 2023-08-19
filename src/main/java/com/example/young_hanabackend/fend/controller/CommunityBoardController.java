@@ -31,9 +31,9 @@ public class CommunityBoardController {
     public ResponseEntity<FendResponseObject<List<CommunityBoard>>> getCommunityBoardList(
             HttpServletRequest req,
             HttpServletResponse response,
-            @RequestParam int topic,
-            @RequestParam int limit_start,
-            @RequestParam int limit_end
+            @RequestParam Integer topic,
+            @RequestParam Integer limit_start,
+            @RequestParam Integer limit_end
     ) {
         FendResponseObject<List<CommunityBoard>> ro = new FendResponseObject<>("Success");
         ro.setMessage("게시글 리스트");
@@ -46,7 +46,7 @@ public class CommunityBoardController {
     public ResponseEntity<FendResponseObject<CommunityBoard>> getCommunityBoard(
             HttpServletRequest req,
             HttpServletResponse res,
-            @RequestParam int board_no
+            @RequestParam Integer board_no
     ) {
         FendResponseObject<CommunityBoard> ro = new FendResponseObject<>("Success");
         ro.setMessage("게시글 조회");
@@ -99,7 +99,7 @@ public class CommunityBoardController {
     public ResponseEntity<FendResponseObject<Integer>> deleteCommunityBoard (
             HttpServletRequest req,
             HttpServletResponse res,
-            @RequestParam int board_no
+            @RequestParam Integer board_no
     ) {
         String token = jwtToken.resolveToken(req);
         FendResponseObject<Integer> ro = new FendResponseObject<>("Success");
@@ -118,7 +118,7 @@ public class CommunityBoardController {
     public ResponseEntity<FendResponseObject<Boolean>> checkMyCommunityBoard(
             HttpServletRequest req,
             HttpServletResponse res,
-            @RequestParam int board_no
+            @RequestParam Integer board_no
     ) {
         String token = jwtToken.resolveToken(req);
         FendResponseObject<Boolean> ro = new FendResponseObject<>("Success");
