@@ -14,7 +14,7 @@
 <mapper namespace="com.example.young_hanabackend.fend.mapper.CommunityCommentMapper">
 
     <select id="selectCommunityCommentList" resultType="com.example.young_hanabackend.entity.CommunityComment">
-        SELECT CC_no, UI_student_no, CC_content, CC_or_date FROM COMMUNITY_COMMENT WHERE CB_no = ${board_no} AND CC_delete_T_F = false
+        SELECT CC_no, UI_student_no, CC_content, CC_cr_date FROM COMMUNITY_COMMENT WHERE CB_no = ${board_no} AND CC_delete_T_F = false
     </select>
 
     <insert id="insertCommunityComment" parameterType="com.example.young_hanabackend.entity.CommunityComment">
