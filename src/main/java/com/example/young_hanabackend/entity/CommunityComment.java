@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.sql.Timestamp;
 
 @Data
-public class CommunityComments {
+public class CommunityComment {
     private Integer CC_no;
     private Integer UI_student_no;
     private Integer CB_no;

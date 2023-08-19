@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2019.
+  ~ All right reserved.
+  ~
+  ~ This software is the confidential and proprietary information of WIXNET.
+  ~ You shall not disclose such Confidential Information and
+  ~ shall use it only in accordance with the terms of the license agreement
+  ~ you entered into with WIXNET
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.young_hanabackend.fend.mapper.CommunityBoardMapper">
+
+    <select id="selectCommunityCommentList" resultType="com.example.young_hanabackend.entity.CommunityComment">
+        SELECT CC_no, UI_student, CC_content, CC_or_date FROM COMMUNITY_COMMENTS WHERE CB_no = ${board_no}
+    </select>
+
+    <insert id="insertCommunityComment" parameterType="com.example.young_hanabackend.entity.CommunityComment">
+        INSERT INTO COMMUNITY_COMMENTS (UI_student_no, CB_no, CC_content)
+        VALUES
+            (
+             ${cc.UI_student_no},
+             ${cc.CC_no},
+             ${cc.CC_content}
+            )
+    </insert>
+
+</mapper>
