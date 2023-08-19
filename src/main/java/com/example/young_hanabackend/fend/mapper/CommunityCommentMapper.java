@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface CommunityCommentMapper {
     List<CommunityComment> selectCommunityCommentList(Integer board);
-
     int insertCommunityComment(@Param("CC") CommunityComment communityComment);
+    int deleteCommunityComment(int student_no, int comment_no, int board_no);
+    int selectMyCommunityComment(int student_no, int comment_no, int board_no);
 }

@@ -35,7 +35,7 @@ public class CommunityCommentController {
     ) {
         FendResponseObject<List<CommunityComment>> ro = new FendResponseObject<>("Success");
         ro.setMessage("댓글 리스트");
-        ro.setData(communityCommentService.getCommunityCommentsList(board_no));
+        ro.setData(communityCommentService.getCommunityCommentList(board_no));
 
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }
@@ -55,7 +55,29 @@ public class CommunityCommentController {
             return new ResponseEntity<>(ro, HttpStatus.FORBIDDEN);
 
         communityComment.setUI_student_no(jwtToken.getUserPk(token));
-        ro.setData(communityCommentService.postCommunityComments(communityComment));
+        ro.setData(communityCommentService.postCommunityComment(communityComment));
+
+        return new ResponseEntity<>(ro, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/comment")
+    public ResponseEntity<FendResponseObject<Integer>> deleteCommunityComments(
+            HttpServletRequest req,
+            HttpServletResponse res,
+            @RequestParam Integer comment_no,
+            @RequestParam Integer board_no
+    ) {
+        String token = jwtToken.resolveToken(req);
+        FendResponseObject<Integer> ro = new FendResponseObject<>("Success");
+        ro.setMessage("댓글 삭제");
+
+        Integer student_no = jwtToken.getUserPk(token);
+
+        // jwt 유효성 검증
+        if (!jwtToken.validateToken(token) || !communityCommentService.checkMyCommunityComment(student_no, comment_no, board_no))
+            return new ResponseEntity<>(ro, HttpStatus.FORBIDDEN);
+
+        ro.setData(communityCommentService.deleteCommunityComment(student_no, comment_no, board_no));
 
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }
