@@ -3,6 +3,7 @@ package com.example.young_hanabackend.fend.mapper;
 import com.example.young_hanabackend.entity.CommunityBoard;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
 public interface CommunityBoardMapper {
     List<CommunityBoard> selectCommunityBoardList(int topic, int limit_start, int limit_end);
     CommunityBoard selectCommunityBoard(int board_no);
+    @Transactional
     int insertCommunityBoard(@Param("CB") CommunityBoard communityBoard);
     int updateCommunityBoard(@Param("CB") CommunityBoard communityBoard);
     int deleteCommunityBoard(int board_no);

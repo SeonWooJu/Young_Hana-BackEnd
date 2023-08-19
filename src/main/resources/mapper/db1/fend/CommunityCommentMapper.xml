@@ -21,9 +21,9 @@
         INSERT INTO COMMUNITY_COMMENT (UI_student_no, CB_no, CC_content)
         VALUES
             (
-             ${cc.UI_student_no},
-             ${cc.CC_no},
-             ${cc.CC_content}
+             ${CC.UI_student_no},
+             ${CC.CC_no},
+             '${CC.CC_content}'
             )
     </insert>
 
