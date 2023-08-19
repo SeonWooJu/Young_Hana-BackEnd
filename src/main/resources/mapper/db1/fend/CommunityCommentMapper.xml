@@ -11,14 +11,14 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.young_hanabackend.fend.mapper.CommunityBoardMapper">
+<mapper namespace="com.example.young_hanabackend.fend.mapper.CommunityCommentMapper">
 
     <select id="selectCommunityCommentList" resultType="com.example.young_hanabackend.entity.CommunityComment">
-        SELECT CC_no, UI_student, CC_content, CC_or_date FROM COMMUNITY_COMMENTS WHERE CB_no = ${board_no} AND CC_delete_T_F = false
+        SELECT CC_no, UI_student, CC_content, CC_or_date FROM COMMUNITY_COMMENT WHERE CB_no = ${board_no} AND CC_delete_T_F = false
     </select>
 
     <insert id="insertCommunityComment" parameterType="com.example.young_hanabackend.entity.CommunityComment">
-        INSERT INTO COMMUNITY_COMMENTS (UI_student_no, CB_no, CC_content)
+        INSERT INTO COMMUNITY_COMMENT (UI_student_no, CB_no, CC_content)
         VALUES
             (
              ${cc.UI_student_no},
@@ -28,14 +28,14 @@
     </insert>
 
     <update id="deleteCommunityComment" parameterType="int">
-        UPDATE COMMUNITY_COMMENTS
+        UPDATE COMMUNITY_COMMENT
         SET
             CC_delete_T_F = true
         WHERE CC_no = ${comment_no} AND UI_student_no = ${student_no} AND CB_no = ${board_no}
     </update>
 
     <select id="selectMyCommunityComment" resultType="int">
-        SELECT COUNT(*) FROM COMMUNITY_COMMENTS WHERE CC_no = ${comment_no} AND UI_student_no = ${student_no} AND CB_no = ${board_no}
+        SELECT COUNT(*) FROM COMMUNITY_COMMENT WHERE CC_no = ${comment_no} AND UI_student_no = ${student_no} AND CB_no = ${board_no}
     </select>
 
 </mapper>
