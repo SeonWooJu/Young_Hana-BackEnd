@@ -14,5 +14,5 @@ public interface AccountMapper {
     int insertAccount(@Param("user") UserInfo user);
 
     // 계정 아이디 비밀번호 체크
-    String selectAccountStudentNoAndPw(int student_no);
+    UserInfo selectAccountStudentNoAndPw(int student_no);
 }

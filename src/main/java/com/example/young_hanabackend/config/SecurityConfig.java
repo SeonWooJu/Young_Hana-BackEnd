@@ -48,13 +48,13 @@ public class SecurityConfig {
 
                 /** 세션 사용하지 않음 **/
                 .sessionManagement(session -> session
-
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 /** HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정 **/
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(new AntPathRequestMatcher("/api/account/**")).permitAll()
 //                        .requestMatchers(new AntPathRequestMatcher("/api/v1/**")).permitAll()
+//                        .requestMatchers(new AntPathRequestMatcher("/api/admin/**")).hasRole("ADMIN")
                         .anyRequest().authenticated())
 
                 .addFilterBefore(customJwtFilter, UsernamePasswordAuthenticationFilter.class)

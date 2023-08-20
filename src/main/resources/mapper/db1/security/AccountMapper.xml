@@ -18,7 +18,7 @@
     </select>
 
     <insert id="insertAccount" parameterType="com.example.young_hanabackend.entity.UserInfo">
-        INSERT INTO USER_INFO (UI_student_no, UI_name, UI_birth, UI_email, UI_phone_no, UI_pw, UI_group, UI_role)
+        INSERT INTO USER_INFO (UI_student_no, UI_name, UI_birth, UI_email, UI_phone_no, UI_pw, UI_group)
         VALUES
             (
                 ${user.UI_student_no},
@@ -27,13 +27,12 @@
                 TO_BASE64(AES_ENCRYPT('${user.UI_email}', '${encryptionKey}')),
                 TO_BASE64(AES_ENCRYPT('${user.UI_phone_no}', '${encryptionKey}')),
                 TO_BASE64(AES_ENCRYPT('${user.UI_pw}', '${encryptionKey}')),
-                '${user.UI_group}',
-                0
+                '${user.UI_group}'
              )
     </insert>
 
-    <select id="selectAccountStudentNoAndPw" resultType="String">
-        SELECT AES_DECRYPT(FROM_BASE64(UI_pw), '${encryptionKey}') FROM USER_INFO
+    <select id="selectAccountStudentNoAndPw" resultType="com.example.young_hanabackend.entity.UserInfo">
+        SELECT AES_DECRYPT(FROM_BASE64(UI_pw), '${encryptionKey}') AS UI_pw, UI_role FROM USER_INFO
         WHERE UI_student_no = #{student_no}
     </select>
 

@@ -20,7 +20,7 @@ public class UserInfo {
     private String UI_phone_no;
     private String UI_pw;
     private String UI_group;
-    private Integer UI_role;
+    private String UI_role;
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Timestamp UI_cr_date;
     private String UI_github_url;

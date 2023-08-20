@@ -6,19 +6,23 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
 @Component
 public class JwtToken {
+
     @Value("${jwt.secret.key}")
     private String secretKey;
 
@@ -32,8 +36,8 @@ public class JwtToken {
     }
 
     /** JWT 토큰 생성 **/
-    public String createToken(int userPk) {
-        Claims claims = Jwts.claims().setSubject(new AES256().encrypt(String.valueOf(userPk))); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
+    public String createToken(int userPk, String role) {
+        Claims claims = Jwts.claims().setSubject(new AES256().encrypt(userPk + role)); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims) // 정보 저장
@@ -46,7 +50,12 @@ public class JwtToken {
 
     /** 토큰에서 학번 추출 **/
     public Integer getUserPk(String token) {
-        return Integer.parseInt(new AES256().decrypt(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject()));
+        return Integer.parseInt((new AES256().decrypt(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject())).substring(0, 8));
+    }
+    /** 토큰에서 권한 추출 후 권한이 Admin인지 Check **/
+    public boolean checkAdminRole(String token) {
+        String role = (new AES256().decrypt(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject())).substring(9);
+        return "ADMIN".equals(role);
     }
 
     /** Spring Boot Security에 jwt 등록(URI 허기) **/

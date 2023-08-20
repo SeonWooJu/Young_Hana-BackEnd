@@ -97,13 +97,13 @@ public class AccountService {
 
     public String singIn (UserInfo user) {
         try {
-            String pw = accountMapper.selectAccountStudentNoAndPw(user.getUI_student_no());
+            UserInfo user_ = accountMapper.selectAccountStudentNoAndPw(user.getUI_student_no());
 
             // 비밀번호가 일치하지 않다면 null return
-            if (!passwordEncoder.matches(user.getUI_pw(), pw))
+            if (!passwordEncoder.matches(user.getUI_pw(), user_.getUI_pw()))
                 return null;
 
-            return jwtToken.createToken(user.getUI_student_no());
+            return jwtToken.createToken(user.getUI_student_no(), user.getUI_role());
         } catch (Exception e) {
             e.printStackTrace();
             return null;

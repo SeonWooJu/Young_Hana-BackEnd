@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2019.
+  ~ All right reserved.
+  ~
+  ~ This software is the confidential and proprietary information of WIXNET.
+  ~ You shall not disclose such Confidential Information and
+  ~ shall use it only in accordance with the terms of the license agreement
+  ~ you entered into with WIXNET
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.young_hanabackend.security.mapper.UserMapper">
+
+    <select id="selectUserRole" resultType="String">
+        SELECT UI_role FROM USER_INFO WHERE UI_student_no = #{student_no}
+    </select>
+
+</mapper>
