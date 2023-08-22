@@ -35,14 +35,20 @@ public class AccountController {
     }
 
     @PostMapping("/sing-up")
-    public ResponseEntity<FendResponseObject<String>> singUp (
+    public ResponseEntity<FendResponseObject<Integer>> singUp (
             HttpServletRequest req,
             HttpServletResponse res,
             @RequestBody UserInfo user
     ) {
-        FendResponseObject ro = new FendResponseObject("Success");
+        FendResponseObject<Integer> ro = new FendResponseObject("Success");
         ro.setMessage("회원가입");
-        ro.setData(accountService.singUp(user));
+
+        Integer student_no = accountService.singUp(user);
+
+        if (student_no == null)
+            return new ResponseEntity<>(ro, HttpStatus.BAD_REQUEST);
+
+        ro.setData(student_no);
 
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }

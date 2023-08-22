@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
 
 @Service
 public class AccountService {
@@ -80,6 +81,14 @@ public class AccountService {
     }
 
     public Integer singUp (UserInfo user) {
+        if (
+                !Pattern.matches("^[0-9]{9}$", String.valueOf(user.getUI_student_no())) ||
+                !Pattern.matches("/^[a-z0-9]+@[a-z]+(\\.([a-z]{2,3}))?\\.[a-z]{2,3}$", user.getUI_email()) ||
+                !Pattern.matches("/^010([0-9]{4})([0-9]{4})$", user.getUI_phone_no()) ||
+                !Pattern.matches("^[a-z0-9{}\\[\\]/?.,;:|)*~`!^\\-_+<>@#$%&\\\\=('\"]{10,20}$", user.getUI_pw())
+        )
+            return null;
+
         // 학번의 유효성 검사 || 중복 회원가입 방지
         if (!checkStudentNo(user) || accountMapper.selectAccountCount(user.getUI_student_no()) != 0)
             return null;
