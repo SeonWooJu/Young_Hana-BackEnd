@@ -55,7 +55,12 @@ public class AccountController {
     ) {
         FendResponseObject ro = new FendResponseObject("Success");
         ro.setMessage("로그인");
-        ro.setData(accountService.singIn(user));
+
+        String token = accountService.singIn(user);
+        if (token == null)
+            return new ResponseEntity<>(ro, HttpStatus.BAD_REQUEST);
+
+        ro.setData(token);
 
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }
