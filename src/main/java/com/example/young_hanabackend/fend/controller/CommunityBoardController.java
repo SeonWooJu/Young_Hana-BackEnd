@@ -2,7 +2,7 @@ package com.example.young_hanabackend.fend.controller;
 
 import com.example.young_hanabackend.entity.CommunityBoard;
 import com.example.young_hanabackend.fend.service.CommunityBoardService;
-import com.example.young_hanabackend.security.logic.JwtToken;
+import com.example.young_hanabackend.security.util.JwtToken;
 import com.example.young_hanabackend.security.model.FendResponseObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

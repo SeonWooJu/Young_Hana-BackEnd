@@ -1,7 +1,7 @@
 package com.example.young_hanabackend.config;
 
-import com.example.young_hanabackend.security.logic.CustomJwtFilter;
-import com.example.young_hanabackend.security.logic.JwtToken;
+import com.example.young_hanabackend.security.util.CustomJwtFilter;
+import com.example.young_hanabackend.security.util.JwtToken;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 

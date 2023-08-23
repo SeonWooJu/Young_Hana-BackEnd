@@ -1,10 +1,13 @@
-package com.example.young_hanabackend.security.logic;
+package com.example.young_hanabackend.security.util;
+
+import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+@Component
 public class AES256 {
 
     private static String alg = "AES/CBC/PKCS5Padding";
