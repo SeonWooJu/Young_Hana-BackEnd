@@ -1,7 +1,6 @@
 package com.example.young_hanabackend.security.service;
 
 import com.example.young_hanabackend.entity.UserInfo;
-import com.example.young_hanabackend.security.logic.AES256;
 import com.example.young_hanabackend.security.logic.JwtToken;
 import com.example.young_hanabackend.security.mapper.AccountMapper;
 import org.json.JSONArray;
@@ -35,8 +34,7 @@ public class AccountService {
     public Boolean checkStudentNo (UserInfo user) {
         // 정규식
         if (
-                !Pattern.matches("^[0-9]{9}$", String.valueOf(user.getUI_student_no())) ||
-                !Pattern.matches("^[a-z0-9{}\\[\\]/?.,;:|)*~`!^\\-_+<>@#$%&\\\\=('\"]{10,20}$", user.getUI_pw())
+                !Pattern.matches("^[0-9]{9}$", String.valueOf(user.getUI_student_no()))
         )
             return null;
 
@@ -90,9 +88,9 @@ public class AccountService {
     public Integer singUp (UserInfo user) {
         // 정규식
         if (
-                !Pattern.matches("^[0-9]{9}$", String.valueOf(user.getUI_student_no())) ||
-                !Pattern.matches("/^[a-z0-9]+@[a-z]+(\\.([a-z]{2,3}))?\\.[a-z]{2,3}$", user.getUI_email()) ||
-                !Pattern.matches("/^010([0-9]{4})([0-9]{4})$", user.getUI_phone_no()) ||
+                !Pattern.matches("^[0-9]$", String.valueOf(user.getUI_student_no())) ||
+                !Pattern.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+(.([a-zA-Z]{2,3}))?.[a-zA-Z]{2,3}$", user.getUI_email()) ||
+                !Pattern.matches("^010([0-9]{4})([0-9]{4})$", user.getUI_phone_no()) ||
                 !Pattern.matches("^[a-z0-9{}\\[\\]/?.,;:|)*~`!^\\-_+<>@#$%&\\\\=('\"]{10,20}$", user.getUI_pw())
         )
             return null;
@@ -113,6 +111,13 @@ public class AccountService {
     }
 
     public String singIn (UserInfo user) {
+        // 정규식
+        if (
+                !Pattern.matches("^[0-9]{9}$", String.valueOf(user.getUI_student_no())) ||
+                        !Pattern.matches("^[a-z0-9{}\\[\\]/?.,;:|)*~`!^\\-_+<>@#$%&\\\\=('\"]{10,20}$", user.getUI_pw())
+        )
+            return null;
+
         try {
             UserInfo user_ = accountMapper.selectAccountStudentNoAndPw(user.getUI_student_no());
 
