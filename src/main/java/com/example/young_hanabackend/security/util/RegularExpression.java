@@ -20,6 +20,6 @@ public class RegularExpression {
     }
 
     public boolean password (String pw) {
-        return Pattern.matches("^[a-z0-9{}\\[\\]/?.,;:|)*~`!^\\-_+<>@#$%&\\\\=('\"]{10,20}$", pw);
+        return Pattern.matches("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@#$%^&!])[A-Za-z\\d@#$%^&!]{10,20}$", pw);
     }
 }
