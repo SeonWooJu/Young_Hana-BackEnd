@@ -3,6 +3,7 @@ package com.example.young_hanabackend.security.service;
 import com.example.young_hanabackend.entity.UserInfo;
 import com.example.young_hanabackend.security.util.JwtToken;
 import com.example.young_hanabackend.security.mapper.AccountMapper;
+import com.example.young_hanabackend.security.util.RegularExpression;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,27 +15,27 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.regex.Pattern;
 
 @Service
 public class AccountService {
 
     AccountMapper accountMapper;
     JwtToken jwtToken;
-
-    @Autowired
+    RegularExpression regularExpression;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AccountService(AccountMapper accountMapper, JwtToken jwtToken) {
+    public AccountService(AccountMapper accountMapper, JwtToken jwtToken, PasswordEncoder passwordEncoder, RegularExpression regularExpression) {
         this.accountMapper = accountMapper;
         this.jwtToken = jwtToken;
+        this.passwordEncoder = passwordEncoder;
+        this.regularExpression = regularExpression;
     }
 
     public Boolean checkStudentNo (UserInfo user) {
         // 정규식
         if (
-                !Pattern.matches("^[0-9]*$", String.valueOf(user.getUI_student_no()))
+                !regularExpression.studentNo(user.getUI_student_no())
         )
             return null;
 
@@ -88,10 +89,10 @@ public class AccountService {
     public Integer singUp (UserInfo user) {
         // 정규식
         if (
-                !Pattern.matches("^[0-9]*$", String.valueOf(user.getUI_student_no())) ||
-                !Pattern.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+(.([a-zA-Z]{2,3}))?.[a-zA-Z]{2,3}$", user.getUI_email()) ||
-                !Pattern.matches("^010([0-9]{4})([0-9]{4})$", user.getUI_phone_no()) ||
-                !Pattern.matches("^[a-z0-9{}\\[\\]/?.,;:|)*~`!^\\-_+<>@#$%&\\\\=('\"]{10,20}$", user.getUI_pw())
+                !regularExpression.studentNo(user.getUI_student_no()) ||
+                !regularExpression.email(user.getUI_email()) ||
+                !regularExpression.phoneNo(user.getUI_phone_no()) ||
+                !regularExpression.password(user.getUI_pw())
         )
             return null;
 
@@ -113,8 +114,8 @@ public class AccountService {
     public String singIn (UserInfo user) {
         // 정규식
         if (
-                !Pattern.matches("^[0-9]*$", String.valueOf(user.getUI_student_no())) ||
-                !Pattern.matches("^[a-z0-9{}\\[\\]/?.,;:|)*~`!^\\-_+<>@#$%&\\\\=('\"]{10,20}$", user.getUI_pw())
+                !regularExpression.studentNo(user.getUI_student_no()) ||
+                !regularExpression.password(user.getUI_pw())
         )
             return null;
 
