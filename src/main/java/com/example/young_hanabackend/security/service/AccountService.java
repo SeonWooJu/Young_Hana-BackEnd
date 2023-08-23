@@ -33,6 +33,13 @@ public class AccountService {
     }
 
     public Boolean checkStudentNo (UserInfo user) {
+        // 정규식
+        if (
+                !Pattern.matches("^[0-9]{9}$", String.valueOf(user.getUI_student_no())) ||
+                !Pattern.matches("^[a-z0-9{}\\[\\]/?.,;:|)*~`!^\\-_+<>@#$%&\\\\=('\"]{10,20}$", user.getUI_pw())
+        )
+            return null;
+
         if (user.getUI_birth() == null || user.getUI_name() == null || user.getUI_group() == null || user.getUI_student_no() == null)
             return false;
 
@@ -81,6 +88,7 @@ public class AccountService {
     }
 
     public Integer singUp (UserInfo user) {
+        // 정규식
         if (
                 !Pattern.matches("^[0-9]{9}$", String.valueOf(user.getUI_student_no())) ||
                 !Pattern.matches("/^[a-z0-9]+@[a-z]+(\\.([a-z]{2,3}))?\\.[a-z]{2,3}$", user.getUI_email()) ||
