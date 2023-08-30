@@ -17,8 +17,8 @@ public class CommunityBoardService {
         this.communityBoardMapper = communityBoardMapper;
     }
 
-    public List<CommunityBoard> getCommunityBoardList(int topic, int limit_start, int limit_end) {
-        return communityBoardMapper.selectCommunityBoardList(topic, limit_start, limit_end);
+    public List<CommunityBoard> getCommunityBoardList(int topic, int start) {
+        return communityBoardMapper.selectCommunityBoardList(topic, start);
     }
 
     public CommunityBoard getCommunityBoard(int board_no) {

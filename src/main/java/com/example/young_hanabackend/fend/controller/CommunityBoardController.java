@@ -32,12 +32,11 @@ public class CommunityBoardController {
             HttpServletRequest req,
             HttpServletResponse response,
             @RequestParam Integer topic,
-            @RequestParam Integer limit_start,
-            @RequestParam Integer limit_end
+            @RequestParam Integer start
     ) {
         FendResponseObject<List<CommunityBoard>> ro = new FendResponseObject<>("Success");
         ro.setMessage("게시글 리스트");
-        ro.setData(communityBoardService.getCommunityBoardList(topic, limit_start, limit_end));
+        ro.setData(communityBoardService.getCommunityBoardList(topic, start));
 
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }
@@ -48,9 +47,17 @@ public class CommunityBoardController {
             HttpServletResponse res,
             @RequestParam Integer board_no
     ) {
+        String token = jwtToken.resolveToken(req);
         FendResponseObject<CommunityBoard> ro = new FendResponseObject<>("Success");
         ro.setMessage("게시글 조회");
-        ro.setData(communityBoardService.getCommunityBoard(board_no));
+        CommunityBoard cb = communityBoardService.getCommunityBoard(board_no);
+
+        if (!jwtToken.validateToken(token))
+            return new ResponseEntity<>(ro, HttpStatus.FORBIDDEN);
+
+        cb.setMy_board(communityBoardService.checkMyCommunityBoard(jwtToken.getUserPk(token), board_no));
+
+        ro.setData(cb);
 
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }

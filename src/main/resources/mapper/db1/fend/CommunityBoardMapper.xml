@@ -20,7 +20,7 @@
             cb.CB_no, cb.CB_title, cb.CB_cr_date FROM COMMUNITY_BOARD cb
         WHERE cb.CB_delete_T_F = false AND cb.CB_topic = ${topic}
         ORDER BY cb.CB_no DESC
-            LIMIT ${limit_start}, ${limit_end}
+            LIMIT ${start}, 6
     </select>
 
     <select id="selectCommunityBoard" resultType="com.example.young_hanabackend.entity.CommunityBoard">

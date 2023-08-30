@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface CommunityBoardMapper {
-    List<CommunityBoard> selectCommunityBoardList(int topic, int limit_start, int limit_end);
+    List<CommunityBoard> selectCommunityBoardList(int topic, int start);
     CommunityBoard selectCommunityBoard(int board_no);
     @Transactional
     int insertCommunityBoard(@Param("CB") CommunityBoard communityBoard);

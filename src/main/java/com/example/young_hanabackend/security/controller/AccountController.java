@@ -3,6 +3,7 @@ package com.example.young_hanabackend.security.controller;
 import com.example.young_hanabackend.entity.UserInfo;
 import com.example.young_hanabackend.security.model.FendResponseObject;
 import com.example.young_hanabackend.security.service.AccountService;
+import com.example.young_hanabackend.security.util.JwtToken;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 
     AccountService accountService;
+    JwtToken jwtToken;
 
     @Autowired
-    public AccountController(AccountService accountService) {
+    public AccountController(AccountService accountService, JwtToken jwtToken) {
         this.accountService = accountService;
+        this.jwtToken = jwtToken;
     }
 
     @PostMapping("/check-student-no")
@@ -30,6 +33,20 @@ public class AccountController {
         FendResponseObject ro = new FendResponseObject("Success");
         ro.setMessage("학번 체크");
         ro.setData(accountService.checkStudentNo(user));
+
+        return new ResponseEntity<>(ro, HttpStatus.OK);
+    }
+
+    @GetMapping("/check-role-admin")
+    public ResponseEntity<FendResponseObject<Boolean>> checkRoleAdmin (
+            HttpServletRequest req,
+            HttpServletResponse res
+    ) {
+        String token = jwtToken.resolveToken(req);
+
+        FendResponseObject ro = new FendResponseObject("Success");
+        ro.setMessage("어드민 체크");
+        ro.setData(jwtToken.checkAdminRole(token));
 
         return new ResponseEntity<>(ro, HttpStatus.OK);
     }

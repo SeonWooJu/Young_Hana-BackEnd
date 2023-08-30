@@ -18,4 +18,5 @@ public class CommunityBoard {
     private Timestamp CB_cr_date;
     private Integer CB_topic;
     private Boolean CB_delete_T_F;
+    private Boolean my_board;
 }
