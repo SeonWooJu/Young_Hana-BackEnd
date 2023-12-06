@@ -8,8 +8,9 @@ on:
 jobs:
   build:
     name: Build and Spring Boot Project
-    runs-on: CentOS 7
+    runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
       - run: echo Start
       - run: pwd
