@@ -12,6 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - run: source /etc/profile.d/maven.sh
       - name: Young_Hana Securyity File Copy 
         run: cp /drive/Young_Hana-Security/BackEnd/application.properties ./ && cp /drive/Young_Hana-Security/BackEnd/db1-config.xml ./src/main/resources/mapper/db1/
       - name: Spring Boot Maven Build
