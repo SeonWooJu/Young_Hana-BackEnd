@@ -12,6 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: echo Start
-      - run: pwd
-      - run: ls -la
+      - name: Young_Hana Securyity Copy 
+        run: cp /home/Young_Hana-Security/BackEnd/application.properties ./
+        run: cp /home/Young_Hana-Security/BackEnd/db1-config.xml ./src/main/resources/mapper/db1/
