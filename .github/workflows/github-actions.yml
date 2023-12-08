@@ -12,7 +12,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Version
+        run: export VERSION=$(date +%y.%m.%d)
       - name: Young_Hana Securyity File Copy 
-        run: cp /drive/Young_Hana-Security/BackEnd/application.properties ./ && cp /drive/Young_Hana-Security/BackEnd/db1-config.xml ./src/main/resources/mapper/db1/
+        run: cp /drive/Young_Hana-Security/BackEnd/application.properties ./ ; cp /drive/Young_Hana-Security/BackEnd/db1-config.xml ./src/main/resources/mapper/db1/ ;
       - name: Spring Boot Maven Build
         run: mvn clean package -Dmaven.test.skip=true
+      - name: Docker Image Build
+        run: docker build -t "YoungHnan_BackEnd:$VERSION" .
+      - name: Docker Image Stop/Start
+        run: docker stop YoungHnan_BackEnd ; docker rm YoungHnan_BackEnd ; docker run -d --name "YoungHnan_BackEnd:$VERSION" -p 80:8080 YoungHnan_BackEnd ;
