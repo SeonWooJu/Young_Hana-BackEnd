@@ -13,4 +13,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Young_Hana Securyity Copy 
-        run: cp /home/Young_Hana-Security/BackEnd/application.properties ./ && cp /home/Young_Hana-Security/BackEnd/db1-config.xml ./src/main/resources/mapper/db1/
+        run: cp /drive/Young_Hana-Security/BackEnd/application.properties ./ && cp /drive/Young_Hana-Security/BackEnd/db1-config.xml ./src/main/resources/mapper/db1/
