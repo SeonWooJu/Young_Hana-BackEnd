@@ -21,4 +21,4 @@ jobs:
       - name: Docker Image Build
         run: docker build -t younghnan_backend .
       - name: Docker Image Stop/Start
-        run: docker stop younghnan_backend ; docker rm younghnan_backend ; docker run -d --name younghnan_backend -p 80:8080 younghnan_backend ;
+        run: docker stop younghnan_backend ; docker rm younghnan_backend ; docker run -d --name younghnan_backend -p 8080:8080 younghnan_backend ;
