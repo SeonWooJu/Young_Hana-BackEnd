@@ -15,7 +15,7 @@ jobs:
       - name: Version
         run: export VERSION=$(date +%y.%m.%d)
       - name: Young_Hana Securyity File Copy 
-        run: cp /drive/Young_Hana-Security/BackEnd/application.properties ./ ; cp /drive/Young_Hana-Security/BackEnd/db1-config.xml ./src/main/resources/mapper/db1/ ;
+        run: cp /drive/Young_Hana-Security/BackEnd/application.properties ./src/main/resources/ ; cp /drive/Young_Hana-Security/BackEnd/db1-config.xml ./src/main/resources/mapper/db1/ ;
       - name: Spring Boot Maven Build
         run: mvn clean package -Dmaven.test.skip=true
       - name: Docker Image Build
